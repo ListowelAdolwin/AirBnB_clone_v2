@@ -40,11 +40,13 @@ class DBStorage:
         storage = {}
         if (cls):
             for instance in self.__session.query(cls):
-                storage[instance.id] = instance
+                key = f'{cls.__name__}.{instance.id}'
+                storage[key] = instance
         elif (cls is None):
             for cls_name in valid_classes:
                 for instance in self.__session.query(eval(cls_name)):
-                    storage[instance.id] = instance
+                    key = f'{eval(cls_name.__name__)}.{instance.id}'
+                    storage[key] = instance
         return storage
 
     def new(self, obj):
