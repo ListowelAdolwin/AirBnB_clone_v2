@@ -52,6 +52,7 @@ class BaseModel:
 
         if '_sa_instance_state' in dictionary:
             del dictionary['_sa_instance_state']
+            models.storage.save()
 
         return dictionary
 
@@ -61,3 +62,4 @@ class BaseModel:
         '''
         from models import storage
         storage.delete(self)
+        storage.save()

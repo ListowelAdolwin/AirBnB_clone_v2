@@ -1,0 +1,14 @@
+{
+    "State.a191b50e-d55a-4442-bf38-b37c96c13032": {
+        "id": "a191b50e-d55a-4442-bf38-b37c96c13032",
+        "created_at": "2022-10-11T05:04:55.513396",
+        "updated_at": "2022-10-11T05:04:55.513468",
+        "__class__": "State"
+    },
+    "User.3ced15d3-1cde-4ada-a3d5-c666830adcd3": {
+        "id": "3ced15d3-1cde-4ada-a3d5-c666830adcd3",
+        "created_at": "2022-10-11T05:07:25.162098",
+        "updated_at": "2022-10-11T05:07:25.162140",
+        "__class__": "User"
+    }
+}
