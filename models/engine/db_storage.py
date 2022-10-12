@@ -6,7 +6,7 @@ from models.base_model import Base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models import *
 
-#valid_classes = ['City', 'State', 'User', 'Amenity', 'Place', 'Review']
+valid_classes = ['City', 'State', 'User', 'Amenity', 'Place', 'Review']
 
 
 class DBStorage:
@@ -40,12 +40,13 @@ class DBStorage:
         storage = {}
         if (cls):
             for instance in self.__session.query(cls):
-                key = f'cls.{instance.id}'
-                storage[instance.id] = instance
-       # elif (cls is None):
-        #    for cls_name in valid_classes:
-         #       for instance in self.__session.query(eval(cls_name)):
-          #          storage[instance.id] = instance
+                key = f'{cls.__name__}.{instance.id}'
+                storage[key] = instance
+        elif (cls is None):
+            for cls_name in valid_classes:
+                for instance in self.__session.query(eval(cls_name)):
+                    key = f'{eval(cls_name.__name__)}.{instance.id}'
+                    storage[key] = instance
         return storage
 
     def new(self, obj):
