@@ -11,6 +11,8 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from shlex import split
+import re
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -117,7 +119,41 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ Create an object of any class"""
 
-        try:
+        if args == "" or args is None:
+            print("** class name missing **")
+        else:
+            my_list = args.split(" ")
+            classname = my_list[0]
+            if classname not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+                return
+            obj = eval("{}()".format(classname))
+            for i in range(1, len(my_list)):
+                rex = r'^(\S+)\=(\S+)'
+                match = re.search(rex, my_list[i])
+                if not match:
+                    continue
+                key = match.group(1)
+                value = match.group(2)
+                cast = None
+                if not re.search('^".*"$', value):
+                    if '.' in value:
+                        cast = float
+                    else:
+                        cast = int
+                else:
+                    value = value.replace('"', '')
+                    value = value.replace('_', ' ')
+                if cast:
+                    try:
+                        value = cast(value)
+                    except ValueError:
+                        pass
+                setattr(obj, key, value)
+            obj.save()
+            print("{}".format(obj.id))
+
+        """  try:
             if not args:
                 raise SyntaxError()
             my_list = args.split(" ")
@@ -135,10 +171,10 @@ class HBNBCommand(cmd.Cmd):
                 if type(attributes[1]) is not tuple:
                     setattr(obj, attributes[0], attributes[1])
             obj.save()
-        except SyntaxError:
-            print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
+        except SyntaxError: """
+        #    print("** class name missing **")
+       # except NameError:
+         #   print("** class doesn't exist **")
 
     def help_create(self):
         """ Help information for the create method """
