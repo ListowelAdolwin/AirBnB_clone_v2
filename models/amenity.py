@@ -6,7 +6,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship, backref
 
 
-class Amenity(BaseModel):
+class Amenity(BaseModel, Base):
     """
     Amenity class to map to the amenities table"""
 
