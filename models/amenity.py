@@ -3,7 +3,7 @@
 from models.base_model import BaseModel, Base
 from os import getenv
 from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 
 
 class Amenity(BaseModel):
